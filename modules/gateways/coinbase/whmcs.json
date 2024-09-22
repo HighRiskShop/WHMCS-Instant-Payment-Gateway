@@ -1,13 +1,13 @@
 {
   "schema": "1.0",
   "type": "whmcs-gateways",
-  "name": "transfi",
+  "name": "coinbase",
   "license": "proprietary",
   "category": "payments",
   "description": {
-    "name": "transfi",
-    "tagline": "Instant Approval High Risk Merchant Gateway (transfi.com)",
-    "long": "Instant approval High Risk Merchant Gateway with instant payouts to your USDC Polygon wallet using transfi.com infrastructure",
+    "name": "coinbase",
+    "tagline": "Instant Approval High Risk Merchant Gateway (coinbase.com)",
+    "long": "Instant approval High Risk Merchant Gateway with instant payouts to your USDC Polygon wallet using coinbase.com infrastructure",
     "features": [
       "Accept all major credit and debit cards including Visa and Mastercard directly on your site",
       "Instant Approval",
@@ -16,7 +16,7 @@
     ]
   },
   "logo": {
-    "filename": "transfi.png"
+    "filename": "coinbase.png"
   },
   "support": {
     "homepage": "https:\/\/www.highriskshop.com\/",

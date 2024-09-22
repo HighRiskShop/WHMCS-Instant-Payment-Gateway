@@ -1,13 +1,13 @@
 {
   "schema": "1.0",
   "type": "whmcs-gateways",
-  "name": "transfi",
+  "name": "robinhood",
   "license": "proprietary",
   "category": "payments",
   "description": {
-    "name": "transfi",
-    "tagline": "Instant Approval High Risk Merchant Gateway (transfi.com)",
-    "long": "Instant approval High Risk Merchant Gateway with instant payouts to your USDC Polygon wallet using transfi.com infrastructure",
+    "name": "robinhood",
+    "tagline": "Instant Approval High Risk Merchant Gateway (robinhood.com)",
+    "long": "Instant approval High Risk Merchant Gateway with instant payouts to your USDC Polygon wallet using robinhood.com infrastructure",
     "features": [
       "Accept all major credit and debit cards including Visa and Mastercard directly on your site",
       "Instant Approval",
@@ -16,7 +16,7 @@
     ]
   },
   "logo": {
-    "filename": "transfi.png"
+    "filename": "robinhood.png"
   },
   "support": {
     "homepage": "https:\/\/www.highriskshop.com\/",
