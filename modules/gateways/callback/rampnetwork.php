@@ -50,13 +50,13 @@ if ($invoice['result'] == 'success' && $invoice['status'] != 'Paid') {
         $convertedAmount = (float)$invoiceTotal;
     }
 
-    // Determine if the payment meets the threshold (80% of the invoice total)
-    $threshold = 0.80 * $convertedAmount;
+    // Determine if the payment meets the threshold (60% of the invoice total)
+    $threshold = 0.60 * $convertedAmount;
     $receivedAmount = (float)$value_coin;
 
     if ($receivedAmount < $threshold) {
-        // Payment is less than 80% of the expected amount, do not mark as paid
-        die("Error: Payment received is less than 80% of the invoice total. Provider sent $receivedAmount The converted to USD amount is $convertedAmount USD and the original invoice was for $invoiceTotal $invoiceCurrencyCode");
+        // Payment is less than 60% of the expected amount, do not mark as paid
+        die("Error: Payment received is less than 60% of the invoice total. Provider sent $receivedAmount The converted to USD amount is $convertedAmount USD and the original invoice was for $invoiceTotal $invoiceCurrencyCode");
     }
 
     // Mark the invoice as paid
