@@ -3,20 +3,20 @@ if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
 }
 
-function paybis_MetaData()
+function unlimit_MetaData()
 {
     return array(
-        'DisplayName' => 'paybis',
+        'DisplayName' => 'unlimit',
         'DisableLocalCreditCardInput' => true,
     );
 }
 
-function paybis_config()
+function unlimit_config()
 {
     return array(
         'FriendlyName' => array(
             'Type' => 'System',
-            'Value' => 'paybis',
+            'Value' => 'unlimit',
         ),
         'description' => array(
             'FriendlyName' => 'Description',
@@ -34,34 +34,34 @@ function paybis_config()
     );
 }
 
-function paybis_link($params)
+function unlimit_link($params)
 {
     $walletAddress = $params['wallet_address'];
     $amount = $params['amount'];
     $invoiceId = $params['invoiceid'];
 	$email = $params['clientdetails']['email'];
     $systemUrl = rtrim($params['systemurl'], '/');
-    $redirectUrl = $systemUrl . '/modules/gateways/callback/paybis.php';
+    $redirectUrl = $systemUrl . '/modules/gateways/callback/unlimit.php';
 	$invoiceLink = $systemUrl . '/viewinvoice.php?id=' . $invoiceId;
-	$hrs_paybiscom_currency = $params['currency'];
+	$hrs_gateficom_currency = $params['currency'];
 	$callback_URL = $redirectUrl . '?invoice_id=' . $invoiceId;
-	$hrs_paybiscom_final_total = $amount;
+	$hrs_gateficom_final_total = $amount;
 				
-$hrs_paybiscom_gen_wallet = file_get_contents('https://api.highriskshop.com/control/wallet.php?address=' . $walletAddress .'&callback=' . urlencode($callback_URL));
+$hrs_gateficom_gen_wallet = file_get_contents('https://api.highriskshop.com/control/wallet.php?address=' . $walletAddress .'&callback=' . urlencode($callback_URL));
 
 
-	$hrs_paybiscom_wallet_decbody = json_decode($hrs_paybiscom_gen_wallet, true);
+	$hrs_gateficom_wallet_decbody = json_decode($hrs_gateficom_gen_wallet, true);
 
  // Check if decoding was successful
-    if ($hrs_paybiscom_wallet_decbody && isset($hrs_paybiscom_wallet_decbody['address_in'])) {
+    if ($hrs_gateficom_wallet_decbody && isset($hrs_gateficom_wallet_decbody['address_in'])) {
         // Store the address_in as a variable
-        $hrs_paybiscom_gen_addressIn = $hrs_paybiscom_wallet_decbody['address_in'];
-        $hrs_paybiscom_gen_polygon_addressIn = $hrs_paybiscom_wallet_decbody['polygon_address_in'];
-		$hrs_paybiscom_gen_callback = $hrs_paybiscom_wallet_decbody['callback_url'];
+        $hrs_gateficom_gen_addressIn = $hrs_gateficom_wallet_decbody['address_in'];
+        $hrs_gateficom_gen_polygon_addressIn = $hrs_gateficom_wallet_decbody['polygon_address_in'];
+		$hrs_gateficom_gen_callback = $hrs_gateficom_wallet_decbody['callback_url'];
 		
 		
 		 // Update the invoice description to include address_in
-            $invoiceDescription = "Payment reference number: $hrs_paybiscom_gen_polygon_addressIn";
+            $invoiceDescription = "Payment reference number: $hrs_gateficom_gen_polygon_addressIn";
 
             // Update the invoice with the new description
             $invoice = localAPI("GetInvoice", array('invoiceid' => $invoiceId), null);
@@ -75,35 +75,35 @@ return "Error: Payment could not be processed, please try again (wallet address 
     }
 	
 	
-        $paymentUrl = 'https://pay.highriskshop.com/process-payment.php?address=' . $hrs_paybiscom_gen_addressIn . '&amount=' . $hrs_paybiscom_final_total . '&provider=paybis&email=' . urlencode($email) . '&currency=' . $hrs_paybiscom_currency;
+        $paymentUrl = 'https://pay.highriskshop.com/process-payment.php?address=' . $hrs_gateficom_gen_addressIn . '&amount=' . $hrs_gateficom_final_total . '&provider=unlimit&email=' . urlencode($email) . '&currency=' . $hrs_gateficom_currency;
 
         // Properly encode attributes for HTML output
         return '<a href="' . $paymentUrl . '" class="btn btn-primary" rel="noreferrer">' . $params['langpaynow'] . '</a>';
 }
 
-function paybis_activate()
+function unlimit_activate()
 {
     // You can customize activation logic if needed
-    return array('status' => 'success', 'description' => 'paybis gateway activated successfully.');
+    return array('status' => 'success', 'description' => 'unlimit gateway activated successfully.');
 }
 
-function paybis_deactivate()
+function unlimit_deactivate()
 {
     // You can customize deactivation logic if needed
-    return array('status' => 'success', 'description' => 'paybis gateway deactivated successfully.');
+    return array('status' => 'success', 'description' => 'unlimit gateway deactivated successfully.');
 }
 
-function paybis_upgrade($vars)
+function unlimit_upgrade($vars)
 {
     // You can customize upgrade logic if needed
 }
 
-function paybis_output($vars)
+function unlimit_output($vars)
 {
     // Output additional information if needed
 }
 
-function paybis_error($vars)
+function unlimit_error($vars)
 {
     // Handle errors if needed
 }

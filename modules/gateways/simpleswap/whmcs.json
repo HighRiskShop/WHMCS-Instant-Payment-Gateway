@@ -1,13 +1,13 @@
 {
   "schema": "1.0",
   "type": "whmcs-gateways",
-  "name": "paybis",
+  "name": "simpleswap",
   "license": "proprietary",
   "category": "payments",
   "description": {
-    "name": "paybis",
-    "tagline": "Instant Approval High Risk Merchant Gateway (paybis.com)",
-    "long": "Instant approval High Risk Merchant Gateway with instant payouts to your USDC Polygon wallet using paybis.com infrastructure",
+    "name": "simpleswap",
+    "tagline": "Instant Approval High Risk Merchant Gateway (simpleswap.io)",
+    "long": "Instant approval High Risk Merchant Gateway with instant payouts to your USDC Polygon wallet using simpleswap.io infrastructure",
     "features": [
       "Accept all major credit and debit cards including Visa and Mastercard directly on your site",
       "Instant Approval",
@@ -16,7 +16,7 @@
     ]
   },
   "logo": {
-    "filename": "paybis.png"
+    "filename": "simpleswap.png"
   },
   "support": {
     "homepage": "https:\/\/www.highriskshop.com\/",

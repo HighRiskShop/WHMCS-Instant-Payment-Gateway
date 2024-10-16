@@ -1,0 +1,31 @@
+{
+  "schema": "1.0",
+  "type": "whmcs-gateways",
+  "name": "unlimit",
+  "license": "proprietary",
+  "category": "payments",
+  "description": {
+    "name": "unlimit",
+    "tagline": "Instant Approval High Risk Merchant Gateway (gatefi.com)",
+    "long": "Instant approval High Risk Merchant Gateway with instant payouts to your USDC Polygon wallet using gatefi.com infrastructure",
+    "features": [
+      "Accept all major credit and debit cards including Visa and Mastercard directly on your site",
+      "Instant Approval",
+      "Instant payouts to your USDC Polygon wallet",
+      "ZERO Chargebacks all payments are final."
+    ]
+  },
+  "logo": {
+    "filename": "unlimit.png"
+  },
+  "support": {
+    "homepage": "https:\/\/www.highriskshop.com\/",
+    "docs_url": "https:\/\/www.highriskshop.com\/"
+  },
+  "authors": [
+    {
+      "name": "HighRiskShop.COM",
+      "homepage": "https:\/\/www.highriskshop.com\/"
+    }
+  ]
+}
