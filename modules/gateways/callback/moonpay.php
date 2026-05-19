@@ -8,6 +8,8 @@ if (empty($invoiceId)) {
 
 // Load WHMCS configuration
 require_once __DIR__ . '/../../../init.php';
+require_once __DIR__ . '/../../../includes/gatewayfunctions.php';
+require_once __DIR__ . '/../../../includes/invoicefunctions.php';
 
 // Retrieve the invoice information
 $secret = hash('sha256', 'paygate_salt_' . $gatewayParams['wallet_address']);
