@@ -3,6 +3,32 @@ if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
 }
 
+if (!function_exists('paygatedotto_http_get')) {
+    /**
+     * Perform an HTTP GET request using cURL.
+     * Drop-in replacement for file_get_contents() on a URL:
+     * returns the response body as a string, or false on failure.
+     */
+    function paygatedotto_http_get($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        $response = curl_exec($ch);
+        if ($response === false || curl_errno($ch)) {
+            curl_close($ch);
+            return false;
+        }
+        curl_close($ch);
+        return $response;
+    }
+}
+
 function paygatedottohosted_MetaData()
 {
     return array(
@@ -56,7 +82,7 @@ function paygatedottohosted_link($params)
 	$callback_URL = $redirectUrl . '?invoice_id=' . $invoiceId . '&sig=' . $sig;
 	$paygatedotto_paygatedottohostedio_final_total = $amount;
 				
-$paygatedotto_paygatedottohostedio_gen_wallet = file_get_contents('https://api.paygate.to/control/wallet.php?address=' . $walletAddress .'&callback=' . urlencode($callback_URL));
+$paygatedotto_paygatedottohostedio_gen_wallet = paygatedotto_http_get('https://api.paygate.to/control/wallet.php?address=' . $walletAddress .'&callback=' . urlencode($callback_URL));
 
 
 	$paygatedotto_paygatedottohostedio_wallet_decbody = json_decode($paygatedotto_paygatedottohostedio_gen_wallet, true);

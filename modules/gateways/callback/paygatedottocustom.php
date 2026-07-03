@@ -1,4 +1,31 @@
 <?php
+
+if (!function_exists('paygatedotto_http_get')) {
+    /**
+     * Perform an HTTP GET request using cURL.
+     * Drop-in replacement for file_get_contents() on a URL:
+     * returns the response body as a string, or false on failure.
+     */
+    function paygatedotto_http_get($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        $response = curl_exec($ch);
+        if ($response === false || curl_errno($ch)) {
+            curl_close($ch);
+            return false;
+        }
+        curl_close($ch);
+        return $response;
+    }
+}
+
 // Retrieve the invoice ID and received amount from the query string
 $invoiceId = $_GET['invoice_id'];
 $paid_coinname = $_GET['coin'];
@@ -6,7 +33,7 @@ if ($paid_coinname == 'polygon_pol' || $paid_coinname == 'eth' || $paid_coinname
 	
 $paygatedottogateway_hostedpaygatedottopaid_strname_coin = str_replace('_', '/', $paid_coinname);
 
-$paygatedottogateway_hostedpaygate_response_minimum = file_get_contents('https://api.paygate.to/crypto/' . $paygatedottogateway_hostedpaygatedottopaid_strname_coin . '/info.php');
+$paygatedottogateway_hostedpaygate_response_minimum = paygatedotto_http_get('https://api.paygate.to/crypto/' . $paygatedottogateway_hostedpaygatedottopaid_strname_coin . '/info.php');
 $paygatedottogateway_hostedpaygate_conversion_resp_minimum = json_decode($paygatedottogateway_hostedpaygate_response_minimum, true);
 if ($paygatedottogateway_hostedpaygate_conversion_resp_minimum && isset($paygatedottogateway_hostedpaygate_conversion_resp_minimum['prices']['USD'])) {
    $receivedAmount = $paygatedottogateway_hostedpaygate_conversion_resp_minimum['prices']['USD'] * $_GET['value_coin'];
@@ -48,7 +75,7 @@ if ($invoice['result'] == 'success' && $invoice['status'] != 'Paid') {
     // Convert invoice total to USD if necessary
     if ($invoiceCurrencyCode !== 'USD') {
         // Fetch conversion rate from paygate.to API
-        $conversionResponse = file_get_contents(
+        $conversionResponse = paygatedotto_http_get(
             'https://api.paygate.to/control/convert.php?value=' . $invoiceTotal . '&from=' . strtolower($invoiceCurrencyCode)
         );
 
